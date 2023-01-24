@@ -23,8 +23,8 @@ jobs:
     needs: package-push-common
     steps:
       - uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c # pin@v3.3.0
-      - name: Update package source files
-        run: .github\workflows\update-gardenlogin.ps1 ${{ github.event.client_payload.tag }} ${{ github.event.client_payload.windows_sha }} 
+      #- name: Update package source files
+      #  run: .github\workflows\update-gardenlogin.ps1 ${{ github.event.client_payload.tag }} ${{ github.event.client_payload.windows_sha }} 
       - name: Choco pack
         uses: crazy-max/ghaction-chocolatey@90deb87d9fbf0bb2f022b91e3bf11b4441cddda5 # pin@v2.1.0
         with:
