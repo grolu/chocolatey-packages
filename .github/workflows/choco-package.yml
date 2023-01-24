@@ -14,7 +14,8 @@ jobs:
             id: get_version
             run: |
               $version="${{ github.event.client_payload.tag }}"
-              echo "version=$version.replace('v','')" >> $GITHUB_OUTPUT
+              echo "version=hello" >> $GITHUB_OUTPUT
+              #echo "version=$version.replace('v','')" >> $GITHUB_OUTPUT
   package-push-gardenlogin:
     if: github.event.client_payload.component == 'gardenlogin'
     runs-on: windows-latest
