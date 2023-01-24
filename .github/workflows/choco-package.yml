@@ -3,6 +3,8 @@ on: [repository_dispatch]
 jobs:
   package-push-common:
       runs-on: windows-latest
+      outputs:
+        version: ${{ steps.get_version.outputs.version }}
       steps:
           - name: Event Information
             run: |
