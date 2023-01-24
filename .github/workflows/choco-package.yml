@@ -66,7 +66,7 @@ jobs:
         run: |
           git config --local user.email "gardener.ci.user@gmail.com"
           git config --local user.name "gardener-robot-ci-1"
-          git add "gardenctl-v2\gardenctl-v2.${{ env.version }}.nupkg"
+          git add "gardenctl-v2\gardenctl-v2.${{ needs.package-push-common.outputs.cleaned_version }}.nupkg"
           git add "gardenctl-v2\tools\chocolateyinstall.ps1"
           git commit -m "Update gardenctl-v2"
       - name: Push changes
