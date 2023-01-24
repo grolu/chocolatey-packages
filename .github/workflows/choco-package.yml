@@ -29,10 +29,10 @@ jobs:
         uses: crazy-max/ghaction-chocolatey@90deb87d9fbf0bb2f022b91e3bf11b4441cddda5 # pin@v2.1.0
         with:
           args: pack gardenlogin\gardenlogin.nuspec --version=${{ needs.package-push-common.outputs.cleaned_version }} -y --outdir gardenlogin
-      #- name: Choco push
-      #  uses: crazy-max/ghaction-chocolatey@90deb87d9fbf0bb2f022b91e3bf11b4441cddda5 # pin@v2.1.0
-      #  with:
-      #    args: push "gardenlogin\gardenlogin.${{ needs.package-push-common.outputs.cleaned_version }}.nupkg" --source https://chocolatey.org -k ${{ secrets.CHOCOLATEY_API_KEY }}
+      - name: Choco push
+        uses: crazy-max/ghaction-chocolatey@90deb87d9fbf0bb2f022b91e3bf11b4441cddda5 # pin@v2.1.0
+        with:
+          args: push "gardenlogin\gardenlogin.${{ needs.package-push-common.outputs.cleaned_version }}.nupkg" --source https://chocolatey.org -k ${{ secrets.CHOCOLATEY_API_KEY }}
       - name: Commit files
         run: |
           git config --local user.email "gardener.ci.user@gmail.com"
