@@ -15,7 +15,7 @@ jobs:
         id: get_version
         run: |
           $version="${{ github.event.client_payload.tag }}"
-          echo "$cleaned_version=hello" >> $GITHUB_OUTPUT
+          echo "cleaned_version=$version.replace('v','')" >> $env:GITHUB_OUTPUT
           #echo "version=$version.replace('v','')" >> $GITHUB_OUTPUT
   package-push-gardenlogin:
     if: github.event.client_payload.component == 'gardenlogin'
