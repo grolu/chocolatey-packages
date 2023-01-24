@@ -12,7 +12,7 @@ jobs:
             id: get_version
             run: |
               $version="${{ github.event.client_payload.tag }}"
-              echo "version=$version.replace('v','')" >> $GITHUB_ENV
+              echo "version=$version.replace('v','')" >> $GITHUB_OUTPUT
   package-push-gardenlogin:
     if: github.event.client_payload.component == 'gardenlogin'
     runs-on: windows-latest
@@ -24,16 +24,16 @@ jobs:
       - name: Choco pack
         uses: crazy-max/ghaction-chocolatey@90deb87d9fbf0bb2f022b91e3bf11b4441cddda5 # pin@v2.1.0
         with:
-          args: pack gardenlogin\gardenlogin.nuspec --version=${{ env.version }} -y --outdir gardenlogin
+          args: pack gardenlogin\gardenlogin.nuspec --version=${{ needs.package-push-common.outputs.version }} -y --outdir gardenlogin
       #- name: Choco push
       #  uses: crazy-max/ghaction-chocolatey@90deb87d9fbf0bb2f022b91e3bf11b4441cddda5 # pin@v2.1.0
       #  with:
-      #    args: push "gardenlogin\gardenlogin.${{ env.version }}.nupkg" --source https://chocolatey.org -k ${{ secrets.CHOCOLATEY_API_KEY }}
+      #    args: push "gardenlogin\gardenlogin.${{ needs.package-push-common.outputs.version }}.nupkg" --source https://chocolatey.org -k ${{ secrets.CHOCOLATEY_API_KEY }}
       - name: Commit files
         run: |
           git config --local user.email "gardener.ci.user@gmail.com"
           git config --local user.name "gardener-robot-ci-1"
-          git add "gardenlogin\gardenlogin.${{ env.version }}.nupkg"
+          git add "gardenlogin\gardenlogin.${{ needs.package-push-common.outputs.version }}.nupkg"
           git add "gardenlogin\tools\chocolateyinstall.ps1"
           git add "gardenlogin\tools\chocolateyuninstall.ps1"
           git commit -m "Update gardenlogin"
@@ -53,11 +53,11 @@ jobs:
       - name: Choco pack
         uses: crazy-max/ghaction-chocolatey@90deb87d9fbf0bb2f022b91e3bf11b4441cddda5 # pin@v2.1.0
         with:
-          args: pack gardenctl-v2\gardenctl-v2.nuspec --version=${{ env.version }} -y --outdir gardenctl-v2
+          args: pack gardenctl-v2\gardenctl-v2.nuspec --version=${{ needs.package-push-common.outputs.version }} -y --outdir gardenctl-v2
       - name: Choco push
         uses: crazy-max/ghaction-chocolatey@90deb87d9fbf0bb2f022b91e3bf11b4441cddda5 # pin@v2.1.0
         with:
-          args: push "gardenctl-v2\gardenctl-v2.${{ env.version }}.nupkg" --source https://chocolatey.org -k ${{ secrets.CHOCOLATEY_API_KEY }}
+          args: push "gardenctl-v2\gardenctl-v2.${{ needs.package-push-common.outputs.version }}.nupkg" --source https://chocolatey.org -k ${{ secrets.CHOCOLATEY_API_KEY }}
       - name: Commit files
         run: |
           git config --local user.email "gardener.ci.user@gmail.com"
