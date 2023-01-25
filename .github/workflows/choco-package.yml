@@ -60,7 +60,7 @@ jobs:
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@2b011faafdcbc9ceb11414d64d0573f37c774b04 # pin@v4.2.3
         with:
-          add-paths: gardenctl-v2\gardenctl-v2.${{ needs.package-push-common.outputs.cleaned_version }}.nupkg,gardenctl-v2\tools\chocolateyinstall.ps1,gardenctl-v2\tools\chocolateyuninstall.ps1
+          add-paths: gardenctl-v2\gardenctl-v2.${{ needs.package-push-common.outputs.cleaned_version }}.nupkg,gardenctl-v2\tools\chocolateyinstall.ps1
           branch: update_${{ github.event.client_payload.component }}_${{ github.event.client_payload.tag }}
           delete-branch: true
           title: update ${{ github.event.client_payload.component }} to ${{ github.event.client_payload.tag }}
